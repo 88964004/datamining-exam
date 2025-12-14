@@ -1,9 +1,11 @@
+#import  the require libraries
 import pandas as pd  
 from mlxtend.preprocessing import TransactionEncoder  
 from mlxtend.frequent_patterns import apriori, association_rules 
-
+#PART A:DATA PREPROCESSING
 print("PART A: DATA PREPARATION")  
 print()  
+# Create a list of transactions
 transactions = [
     ['Bread', 'Milk', 'Eggs'],          
     ['Bread', 'Butter'],               
@@ -17,29 +19,32 @@ transactions = [
     ['Milk', 'Butter']                  
 ]
 print("Transaction Dataset") 
+# Create a pandas DataFrame with transaction IDs and item lists
 df = pd.DataFrame({  
     'Transaction_ID': range(1, 11), 
     'Items': [', '.join(items) for items in transactions] 
 })
+# Print the DataFrame without showing index numbers
 print(df.to_string(index=False)) 
 print() 
-
-print("One-Hot Encoded Format")  
+# creating one hot encoded format
+print("One-Hot Encoded Format") 
 te = TransactionEncoder() 
 te_arry = te.fit(transactions).transform(transactions)
 df = pd.DataFrame(te_arry, columns=te.columns_) 
 print(df) 
-
-print()  
-print("APRIORI ALGORITHM") 
+print()
+# PART B: APRIORI ALGORITHM 
+print("PART B: APRIORI ALGORITHM") 
 print("Minimum Support: 0.2")
 print(" Minimum Confidence: 0.5")
 print()
+# Apply the Apriori algorithm to find frequent itemsets
 frequent_itemsets = apriori(df, min_support=0.2, use_colnames=True)
 print("Frequent Itemsets Found") 
 print(frequent_itemsets) 
 print()
-
+# Generate association rules from frequent itemsets
 rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.5)
 print("Association Rules Generated:")
 print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
