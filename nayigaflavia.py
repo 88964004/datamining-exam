@@ -1,4 +1,4 @@
-#import  the require libraries
+#import  the require libraries#import  the require libraries
 import pandas as pd  
 from mlxtend.preprocessing import TransactionEncoder  
 from mlxtend.frequent_patterns import apriori, association_rules 
@@ -29,9 +29,9 @@ print(df.to_string(index=False))
 print() 
 # creating one hot encoded format
 print("One-Hot Encoded Format") 
-te = TransactionEncoder() 
-te_arry = te.fit(transactions).transform(transactions)
-df = pd.DataFrame(te_arry, columns=te.columns_) 
+encoder = TransactionEncoder() 
+encoder_arry = encoder.fit(transactions).transform(transactions)
+df = pd.DataFrame(encoder_arry, columns=encoder.columns_) 
 print(df) 
 print()
 # PART B: APRIORI ALGORITHM 
@@ -49,3 +49,5 @@ rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=
 print("Association Rules Generated:")
 print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
 print() 
+
+
